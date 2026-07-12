@@ -1,0 +1,30 @@
+# Azure DevOps Pipeline
+# Connect this GitHub repository in Azure DevOps, then select this file when creating a pipeline.
+
+trigger:
+  branches:
+    include:
+      - main
+      - master
+      - work
+
+pr:
+  branches:
+    include:
+      - main
+      - master
+      - work
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+
+  - script: |
+      echo "Azure DevOps pipeline is running for $(Build.Repository.Name)"
+      echo "Branch: $(Build.SourceBranch)"
+      echo "Commit: $(Build.SourceVersion)"
+      echo "Repository contents:"
+      find . -maxdepth 2 -type f | sort
+    displayName: Validate repository checkout
